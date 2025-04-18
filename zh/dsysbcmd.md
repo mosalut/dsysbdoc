@@ -7,7 +7,7 @@
 # 安装配置
 - 步骤：访问 GitHub 地址 [xxx](#) 
 ## 源码编译 : 使用go语言，go语言官方文档 https://go.dev/doc/install/source
-## 下载安装包：在linux home目录下创建一个文件夹dsysb,把下载的三个可执行程序都放在这里，启动分别参考[dsysb 中文文档](dsysb.md)，与[dsysbminer 简体中文](dsysbminer.md)。
+## 下载安装包：在linux home目录下创建一个文件夹dsysb,把下载的三个可执行程序都放在这里，启动分别参考[dsysb 简体中文](dsysb.md)，与[dsysbminer 简体中文](dsysbminer.md)。
 
 
 # 用户端程序
@@ -27,22 +27,37 @@
 
 ## 开始挖矿
 获取原生代币，使用命令(该命令依赖dsysbminer服务)：
+
+address为接收挖矿奖励的钱包地址
+
+如果本机启动了多个dsysbminer, 则可以通过port, 指定启动在哪个端口上的dsysbminer开始挖矿
+
+默认port为8569
+
 ```bash
-./dsysbcmd start  <address> 
+./dsysbcmd start <address> [port]
 ```
 示例
 ```bash
-./dsysbcmd start D9U8tiQ1BTNBabTHiPh7vKvJQCFDkxQQnX
+./dsysbcmd start D9U8tiQ1BTNBabTHiPh7vKvJQCFDkxQQnX 8570
 ```
 
 ## 停止挖矿
 如果想停止挖矿，使用命令(该命令依赖dsysbminer服务)：
+如果本机启动了多个dsysbminer, 则可以通过port, 指定启动在哪个端口上的dsysbminer停止挖矿
 ```bash
-./dsysbcmd stop
+./dsysbcmd stop [port]
+```
+示例
+```bash
+./dsysbcmd stop 8570
 ```
 
 ## 查看余额
 挖矿成功之后，查看原生代币 Satoshi 的余额,使用命令(该命令依赖dsysb服务)：
+
+address为接收挖矿奖励的钱包地址
+
 ```bash
 ./dsysbcmd getbalance <address> 
 ```
@@ -97,7 +112,7 @@ Token 转账的格式与原生代币类似，使用命令(该命令依赖dsysb�
 ```
 示例：
 ```bash
-./dsysbcmd createrawtransaction transfer '{"from":"DPinAXhUPqFBVa5ixoneHWE9JyRNCQDVkG","to":"DAScYXVT5woYVCmGExBhsgGDsWr776JsAk","amount":10000,"assetId":"xxxxxxx"}'
+./dsysbcmd createrawtransaction transfer '{"from":"DPinAXhUPqFBVa5ixoneHWE9JyRNCQDVkG","to":"DAScYXVT5woYVCmGExBhsgGDsWr776JsAk","amount":10000,"assetId":"102700000000000080969800443955387469513142544e426162544869506837"}'
 ```
 
 ## 查询 Token 余额
@@ -107,7 +122,7 @@ Token 转账的格式与原生代币类似，使用命令(该命令依赖dsysb�
 ```
 示例：
 ```bash 
-./dsysbcmd getassetbalance D9U8tiQ1BTNBabTHiPh7vKvJQCFDkxQQnX 
+./dsysbcmd getassetbalance D9U8tiQ1BTNBabTHiPh7vKvJQCFDkxQQnX 102700000000000080969800443955387469513142544e426162544869506837 
 ```
 
 ## decode解码交易数据
@@ -122,10 +137,16 @@ Token 转账的格式与原生代币类似，使用命令(该命令依赖dsysb�
 ```
 如果能够正确解码的就是数据格式没问题的
 
-## 获取blockchain list 从最新块开始 高度降序
-使用命令(该命令依赖dsysb服务)：：
+## 获取blockchain
+使用命令(该命令依赖dsysb服务)：
+
+从最新块开始，高度降序，默认列出20个区块。quantity 为要列出的数量
 ```bash
-./dsysbcmd getblockchain
+./dsysbcmd getblockchain [quantity]
+```
+示例：
+```bash 
+./dsysbcmd getblockchain 5
 ```
 
 ## 通过索引或者第index个block
@@ -143,11 +164,17 @@ Token 转账的格式与原生代币类似，使用命令(该命令依赖dsysb�
 ```bash 
 ./dsysbcmd getblockbyhash <block_hash>
 ```
-
-## 通过交易hash值获取第n个block中的交易
-使用命令(该命令依赖dsysb服务)：
+示例：
 ```bash 
-./dsysbcmd gettransaction <block_hash> <block_index>
+./dsysbcmd getblockbyhash b09737300000000440a0d444b0a00e876481700000010270000000000008096980044395
+```
+
+## 获取交易
+使用命令(该命令依赖dsysb服务)：
+从最新区块到向前n个区块中，通过交易hash值，获取交易
+n默认为200
+```bash 
+./dsysbcmd gettransaction <txid> [n]
 ```
 
 ## 获取未被区块打包的交易列表

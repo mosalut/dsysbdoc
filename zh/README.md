@@ -4,7 +4,7 @@
 
 - __dsysb__：
 - [dsysb English](../en/dsysb.md)。
-- [dsysb 中文文档](dsysb.md)。
+- [dsysb 简体中文](dsysb.md)。
 
 
 - __dsysbminer__：
