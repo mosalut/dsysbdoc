@@ -1,98 +1,92 @@
-## 0. 约定
-- 本书中提到借鉴 __bitcoin__ 或一些其他加密货币的内容，直接给出跳转链接，不再重复
-- 本书中最小单位保持与 __bitcoin__ 一致(__satoshi__)
-- 本书中所有 _transaction_ 或者 _tx_ 都代表事务，而非交易
+## 0. Conventions
+- This book mentions references to __bitcoin__ or some other cryptocurrencies. Direct jump links are provided without repetition.
+- The smallest unit in this book remains consistent with __bitcoin__ (__satoshi__).
+- All "transactions" or "tx" in this book refer to operations, not financial trades.
 
-## 1. 简介
-__dsysb__ ( _Decentral System Blockchain_ )是一种基于区块链的去中心化加密货币系统。它跟 __bitcoin__ 类似，同时也使用 __ethereum__ 的账户模型。__dsysb__ 围绕着去中心化资产运行业务。可以把同质化资产看成是货币，也可把一种货币的总供应量为1的情况，看做是资产（类似 _NFT_）。
+## 1. Introduction
+__DSYSB__ (_Decentral System Blockchain_) is a decentralized cryptocurrency system based on blockchain. It is similar to __bitcoin__ and also uses __Ethereum__’s account model. __DSYSB__ centers around decentralized asset operations. Fungible assets can be seen as currencies, and a currency with a total supply of 1 can be considered an asset (like an _NFT_).
 
 ### DSB
-_DSB_ 是 __dsysb__ 链上的系统币，类似于 __ethereum__ 上的 _ETH_。他的单位是 _dsb_，他的最小单位是 _satoshi_，并且1 _dsb_ = 100000000 _satoshi_
+_DSB_ is the native system token on the __DSYSB__ chain, similar to ETH on __Ethereum__. Its unit is _DSB_, and the smallest unit is _satoshi_, with 1 _DSB_ = 100,000,000 _satoshi_.
 
 ### Asset token
-_asset_ 的单位也是 _dsb_，最小单位要看它的 _decimals_ 字段。
+_Asset_ tokens are also denominated in _DSB_. The smallest unit depends on its _decimals_ field.
 
-如果 _decimals_ 为1，那么1 _dsb_ = 10 _satoshi_。
+If _decimals_ = 1, then 1 _DSB_ = 10 _satoshi_.
 
-如果 _decimals_ 为2，那么1 _dsb_ = 100 _satoshi_ 以此类推
+If _decimals_ = 2, then 1 _DSB_ = 100 _satoshi_, and so on.
 
-### dsysb与bitcoin的区别在于：
-1. __bitcoin__ 是加密货币。__dsysb__ 是一个能够直接原生发币并交易的加密货币系统，这些操作不用基于智能合约。
-2. __bitcoin__ 使用_UTXO_。__dsysb__ 使用账户模型。
-3. __bitcoin__ 只有转账事务，并且转账交易可以多个发送地址和多个接收地址。__dsysb__ 有多种事务，其中转账事务只能一个发送地址和一个接收地址。(__dsysb__ 可以使用任务机制替代发起多对多的转账)
+### Differences between DSYSB and Bitcoin：
+1. __Bitcoin__ is a cryptocurrency. __DSYSB__ is a system that natively supports coin issuance and transfer without relying on smart contracts.
+2. __Bitcoin__ uses _UTXO_. __DSYSB__ uses an account model.
+3. __Bitcoin__ supports multi-input and multi-output transfers. __DSYSB__ supports only one sender and one recipient per transfer transaction. (__DSYSB__ uses tasks to simulate multi-party transactions)
 
-### dsysb与ethereum的区别在于：
+### Differences between DSYSB and Ethereum：
 1. __ethereum__ 使用智能合约。__dsysb__ 使用任务。
 2. __ethereum__ 着重于合约，_Token_ 类的加密货币，无论怎么用 _erc20_、_erc721_ 等规范归类，其本质是合约中的变量。__dsysb__ 直接使用资产，同质化的资产就是加密货币，并且不需要基于合约或者任务。
 3. __ethereum__ 中对于 _Token_ 类资产的转账，必须执行合约中修改相关变量的语句。__dsysb__对所有资产转账，都可以直接使用命令。
+1. __Ethereum__ uses smart contracts. __DSYSB__ uses tasks.
+2. __Ethereum__'s tokens (_ERC20_, _ERC721_) are variables in contracts. __DSYSB__ uses assets directly; fungible assets are cryptocurrencies and do not require contracts.
+3. Token transfers on __Ethereum__ require contract function calls. __DSYSB__ uses direct commands for all asset transfers.
 
-## 2. 共识与工作量证明（Proof of Work）
-工作量证明是在 __bitcoin__ 中最早提出。这里做一些补充说明
+## 2. Consensus and Proof of Work
+Proof of Work (_PoW_) was introduced in __bitcoin__. Here are additional details.
 
-先设立一个难度预期，参与的节点可以动态地循环地计算出值，当值符合难度预期，可以获取预期的奖励。
-由于符合预期的最终值无法逆推，所以可以用来证明之前动态循环的计算工作量。
-工作量证明中的计算过程，俗称挖矿，每一次出矿，其实是一次全网数据同步的时间点，或者称作记账时间点。但是这里的全网数据同步，也是相对的，要了解为何相对，可以参考_拜占庭问题_。所以还会产生分叉。
+Nodes attempt to compute a value that meets a target difficulty to earn rewards. Since the final value cannot be reverse-engineered, it proves computational work.
+This process, called mining, is a point of synchronization across the network. However, due to the _Byzantine Generals Problem_, forks may occur.
+DSYSB follows __bitcoin__’s rule: a transaction is irreversible after 6 confirmations.
 
-同样沿用 __bitcoin__ 对分叉回退的处理，使用者也应该遵循，交易达到6个确认数，才认为该交易不可逆。
+### How it Works
+- _Problem Complexity_: Miners must find a hash meeting certain criteria (e.g., leading zeros) by hashing the block header.
+- _Competition_: All miners compete to find a valid hash. The winner adds the next block.
+- _Reward_: The successful miner earns crypto and transaction fees.
 
-### 如何工作
-- __问题的复杂性__：矿工需找到一个特定的哈希值，该哈希值必须满足特定条件（如以特定数量的零开头）。这个哈希值是通过对区块头信息进行哈希计算得到的。
-- __竞争__：所有矿工同时争夺解决该问题，谁先找到符合条件的哈希值，谁就能将下一个区块添加到区块链中。
-- __奖励__：成功解决问题的矿工将获得一定数量的加密货币作为奖励，并可以收取交易费用。
+### Difficulty Adjustment
+To maintain stability, __DSYSB__ adjusts difficulty every 2016 blocks to target a 10-minute block time.
+See: [__bitcoin__ whitepaper](https://bitcoin.org/bitcoin.pdf)
 
-### 难度调整
-为了保持区块生成的稳定性，网络定期调整问题的难度。_dsysb_ 网络每 2016 个区块会调整一次难度，以确保平均每 10 分钟生成一个区块。
+## 3. Account Model
+__DSYSB__ uses __Ethereum__’s account model.
 
-详情参考 __bitcoin__ 白皮书：[__bitcoin__ 白皮书](https://bitcoin.org/bitcoin.pdf)
+### Model Components
+- __Balance__: Native token balances are stored as unsigned 64-bit integers.
+- __Custom Assets__: Accounts may hold multiple assets, each with a unique hex ID and balance.
+- __Replay Protection__: Each account has a nonce to track transaction count for uniqueness.
 
-## 3. 账户模型
-__dsysb__ 沿用了以太坊的账户模型
+Serialization is used for storage and transfer, and deserialization restores the account object. Byte arrays store the balance, each asset’s ID and balance, and nonce in little-endian order.
 
-### 账户模型组成
-- __余额管理__：账户的原生代币余额表示用户在网络中的基本财务资源，采用无符号 64 位整数形式存储，确保余额上限为 18,446,744,073,709,551,615，以满足大多数应用需求。(这里之后考虑更改, 暂不翻译)
-- __自定义资产__：每个账户可以持有多个自定义资产，这些资产通过唯一的资产 ID 表示，资产 ID 以十六进制字符串形式存储，资产余额同样以无符号 64 位整数表示。这一设计增强了系统的灵活性和可扩展性。
-- __防重放攻击__：每个账户维护一个随机数（nonce），表示用户发起的交易次数，以确保每笔交易的唯一性，增强系统安全性。
+SHA-256 hashes accounts for integrity and uniqueness, preventing tampering.
 
-在账户状态管理方面，通过序列化和反序列化操作进行有效处理。编码过程将账户信息打包成字节数组，便于存储和传输；解码过程则将字节数组还原为可操作的账户对象。编码时，首先将余额写入字节数组，随后依次添加每个资产的 ID 及其余额，最后添加 nonce，采用小端字节序以提高效率。解码过程通过解析字节数组恢复账户的原始状态。
+## 4. Cryptographic Algorithm
+Elliptic Curve Cryptography (_ECC_) is a public key system offering high security with shorter keys (e.g., 256-bit _ECC_ ≈ 3072-bit RSA). It is ideal for limited-resource devices and supports digital signatures, key exchange, and identity verification.
 
-最后，使用 SHA-256 哈希算法对账户进行摘要，以确保账户状态的完整性和不可篡改性。哈希值提供账户当前状态的唯一标识，能够有效防止数据篡改和伪造。这种综合设计不仅提升了账户模型的安全性与可靠性，还为用户提供了更加灵活和高效的资产管理方式。
+See：[__bitcoin__ whitepaper](https://bitcoin.org/bitcoin.pdf)
 
-## 4. 加密算法
-椭圆曲线加密（_Elliptic Curve Cryptography_, _ECC_）是一种基于椭圆曲线数学理论的公钥密码学技术，广泛应用于安全通信和数据保护。与传统公钥加密算法相比，ECC 提供同等安全性所需的密钥长度显著更短，从而提高了计算效率并降低了存储和带宽需求。例如，使用 256 位的椭圆曲线密钥可以提供与 3072 位 RSA 密钥相媲美的安全性。这一特性使得 ECC 特别适用于资源有限的环境，如移动设备和物联网（IoT）设备。ECC 的安全性依赖于椭圆曲线离散对数问题的计算难度，攻击者在没有私钥的情况下，几乎不可能高效地计算出密钥或破解通信。此外，ECC 还支持数字签名、密钥交换和身份验证等功能，成为现代密码学中重要的加密方案，为信息安全提供了强有力的保障。
+## 5. Block Structure
+This model aims to store and verify decentralized asset transactions using efficient block headers and bodies.
 
-详情参考 __bitcoin__ 白皮书：[__bitcoin__ 白皮书](https://bitcoin.org/bitcoin.pdf)
+### Block Header and Body
+- __Header__: Includes previous hash, current hash, state root, transaction root, difficulty, timestamp, and nonce.
+- __Body__: Contains transaction sets and execution support.
 
-## 5. 区块结构
-本白皮书介绍了一种新的区块链模型，旨在存储和验证去中心化数字资产的交易。我们的设计基于高效的块头和块体结构，以增强数据的完整性、安全性和可扩展性。
+Compared to bitcoin, DSYSB adds a state root and transaction root for improved scalability and complexity support. Headers and bodies are serialized for storage and parsing using little-endian byte order.
 
-### 区块头与块体
-- __区块头__：包含多个关键字段，如前一个哈希、当前哈希、状态根、交易根、挖矿难度目标、时间戳和随机数。这些字段确保区块链的不可篡改性、唯一性及验证区块状态的能力。
-- __区块体__：包含一组交易，支持区块内事务的执行和管理，提升用户交互效率。增加了区块状态
+Blocks can be queried by index over HTTP to retrieve data.
 
-相较于 __bitcoin__ 的区块，我们的模型通过引入状态根和交易根，进一步增强了区块的安全性和可扩展性，允许更复杂的交易和状态管理。区块的状态通过序列化（编码）和反序列化（解码）操作进行管理，其中块头和块体的信息被打包成字节数组，便于存储和传输。编码过程中，各字段依次写入字节数组，并采用小端字节序以提高效率；解码过程则通过解析字节数组重建块对象的原始状态。
+## 6. Transactions
+_Transactions_ define how digital assets are handled and provide methods for hashing, encoding, decoding, computing, verifying, and string representation.
 
-此外，区块链的数据可以通过 HTTP 请求获取，用户可以根据区块索引查询特定区块的信息，从而轻松访问区块链中的任意块和交易信息。
+### Transaction Types
+- _coinbase_: Rewards miners for maintaining the network. Fees are added to the amount.
+- _create_: Issues new assets. Users buy how many blocks the asset can survive. If it expires with no extension, it disappears.
+- _transfer_: Transfers existing assets between users with specified sender, receiver, and amount.
+- _exchange_: Atomic swaps between two parties within one transaction.
+- _deploy_: Publishes a task (like a simplified smart contract). No calls or permissions exist between tasks. The sender funds the task.
+- _call_: Executes a task, possibly changing variables or triggering transfers.
+- _extension_: Extends the lifetime (block count) of an asset.
 
-## 6. 交易
-_transaction_ 是数字资产系统的核心概念，定义了如何处理不同类型的交易。所有交易类型具备统一的方法，包括生成唯一哈希值、进行编码、解码、计算、验证以及字符串表示等。这种设计确保了代码的可扩展性和维护性，使不同交易类型能够方便地进行管理。
+### Fee
+TODO
 
-### 交易类型介绍
-- _coinbase_：作为区块链中最基础的交易类型，_coinbase_交易用于奖励矿工以激励其参与网络维护。尽管未具体实现 _coinbase_ 交易的细节，但其特殊地位与 __bitcoin__ 网络相似，用于创建新币并将其分配给矿工。手续费的奖励，也会加到 _coinbase_ 的 _amount_ 中
-
-- _create_：用于创建新的数字资产，允许用户定义资产的基本属性，如名称和初始供应量。这类交易被打包成原始交易数据并编码。与 __bitcoin__ 的简单支付交易相比，_create_ 交易为用户提供了更大的灵活性，能够发行和管理多样化的数字资产。为了链上不被垃圾占用，__dsysb__ 认为如果一个资产确实有存在价值，必须有人关注使用。所以资产在发布时，需要“购买”它可以在之后多少个区块中被使用，如果这个数量被用完，而没人愿意延续这个资产，那么这个资产将在链上消失！这是一个很重要的特性，请使用者一定要知道。
-
-- _transfer_：用于在用户之间转移已存在的资产，用户可指定转出地址、接收地址和转移金额。这种交易确保资产的安全性和完整性，通过严格的签名和验证机制保障交易有效性。与比特币的标准转账机制相似，_transfer_ 交易同样注重安全和不可篡改性。
-
-- _exchange_：是兑换交易，允许用户在同一交易中进行两个对手转账，在链上，直接保证了交易的原子性。
-
-- _deploy_：发布任务。__dsysb__ 的任务类似于 __ethereum__ 的智能合约，但是他比智能合约要少很多特性，__dsysb__ 认为，智能合约中的很多特性一般人用不到，即使编程人员加入，那么对于一个去中心化项目来说，会影响普通参与者的参与度，形成权益不对等。说白了就是不懂编程的人，容易被懂编程的人欺骗，而智能合约，正是一个很好的埋坑处。当然智能合约本身的设计是伟大的。__dsysb__ 的任务通过简单的计算指令和转账指令等汇合而成。任务和任务之间，没有调用关系，也不存在任何授权。发布时的from地址，就是该任务的 _from_ 地址，所以使用者通常可以新创建一个钱包地址，在这个地址中给到足够的对付金额，以供转给调用任务（完成任务）的人。
-
-- _call_：调用任务。完成或执行已发布的任务，在任务的执行中，可能会修改任务的变量，也可能按照任务的规则触发转账。
-
-- _extension_：资产延续。延续资产的区块数量。
-
-### 手续费
-此处，暂时不用翻译
-
-## 7. 钱包地址
-钱包的生成、签名、验证，基本沿用 __bitcoin__。只是最后用_base58_生成时，对前后的头做了调整，所以看上去总是34位以D开头的字符串
+## 7. Wallet Address
+Wallet generation, signing, and verification follow __bitcoin__’s method. __DSYSB__ addresses are base58-encoded and always 34 characters starting with _D_.
