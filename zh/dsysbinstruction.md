@@ -79,6 +79,7 @@
 | [ins_push16](#ins_push) | 74 | 0x4c | 从调用参数读取16位字节到 vData |
 | [ins_push32](#ins_push) | 75 | 0x4d | 从调用参数读取32位字节到 vData |
 | [ins_push64](#ins_push) | 76 | 0x4e | 从调用参数读取64位字节到 vData |
+| [ins_exit](#ins_exit) | 77 | 0x4f | 退出指令集 |
 
 
 - 以下pn说明，除非特别指定为值，代表的都是具体数据的开始位置索引。一些长度数据是值
@@ -320,3 +321,8 @@ p1: 接收参数的vData
 ```
 
 调用任务时，传递数字参数
+
+
+<h3 id="ins_exit">ins_exit</h3>
+
+退出指令集
