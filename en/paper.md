@@ -22,9 +22,6 @@ If _decimals_ = 2, then 1 _DSB_ = 100 _satoshi_, and so on.
 3. __Bitcoin__ supports multi-input and multi-output transfers. __DSYSB__ supports only one sender and one recipient per transfer transaction. (__DSYSB__ uses tasks to simulate multi-party transactions)
 
 ### Differences between DSYSB and Ethereum：
-1. __ethereum__ 使用智能合约。__dsysb__ 使用任务。
-2. __ethereum__ 着重于合约，_Token_ 类的加密货币，无论怎么用 _erc20_、_erc721_ 等规范归类，其本质是合约中的变量。__dsysb__ 直接使用资产，同质化的资产就是加密货币，并且不需要基于合约或者任务。
-3. __ethereum__ 中对于 _Token_ 类资产的转账，必须执行合约中修改相关变量的语句。__dsysb__对所有资产转账，都可以直接使用命令。
 1. __Ethereum__ uses smart contracts. __DSYSB__ uses tasks.
 2. __Ethereum__'s tokens (_ERC20_, _ERC721_) are variables in contracts. __DSYSB__ uses assets directly; fungible assets are cryptocurrencies and do not require contracts.
 3. Token transfers on __Ethereum__ require contract function calls. __DSYSB__ uses direct commands for all asset transfers.
@@ -42,7 +39,7 @@ DSYSB follows __bitcoin__’s rule: a transaction is irreversible after 6 confir
 - _Reward_: The successful miner earns crypto and transaction fees.
 
 ### Difficulty Adjustment
-To maintain stability, __DSYSB__ adjusts difficulty every 2016 blocks to target a 10-minute block time.
+To maintain stability, __DSYSB__ adjusts difficulty every 1024 blocks to target a 10-minute block time.
 See: [__bitcoin__ whitepaper](https://bitcoin.org/bitcoin.pdf)
 
 ## 3. Account Model
@@ -78,12 +75,12 @@ _Transactions_ define how digital assets are handled and provide methods for has
 
 ### Transaction Types
 - _coinbase_: Rewards miners for maintaining the network. Fees are added to the amount.
-- _create_: Issues new assets. Users buy how many blocks the asset can survive. If it expires with no extension, it disappears.
-- _transfer_: Transfers existing assets between users with specified sender, receiver, and amount.
+- _create_: Issues new assets. Users buy how many blocks the asset can survive. If it expires with no extension, it disappears. In order to prevent the chain from being occupied by garbage, __DSYSB__ believes that if an asset does have value, someone must pay attention to its use. Therefore, when an asset is released, it is necessary to "buy" how many blocks it can be used in the future. If this amount is used up and no one is willing to continue the asset, then the asset will disappear on the chain! This is a very important feature, please be aware of it.
+- _transfer_: Transfers existing assets or __DSB__ between users with specified sender, receiver, and amount.
 - _exchange_: Atomic swaps between two parties within one transaction.
 - _deploy_: Publishes a task (like a simplified smart contract). No calls or permissions exist between tasks. The sender funds the task.
 - _call_: Executes a task, possibly changing variables or triggering transfers.
-- _extension_: Extends the lifetime (block count) of an asset.
+- _extension_: Extends the lifetime (block count) of an asset or a task.
 
 ### Fee
 TODO
