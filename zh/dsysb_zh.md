@@ -1,29 +1,29 @@
-# 准备工作
-
-## 系统要求：
-
-- 操作系统：Linux (64 位)，Windows 10 (测试不足)。
-
-# 安装配置
-- 步骤：访问 GitHub 地址 [xxx](#)
-## 源码编译 : 使用go语言，go语言官方文档 https://go.dev/doc/install/source
-## 下载安装包：在linux home目录下创建一个文件夹dsysb,把下载的三个可执行程序都放在这里，启动分别参考[dsysb 简体中文](dsysb.md)，与[dsysbminer 简体中文](dsysbminer.md)。
-
+# dsysb 文档
 
 ##  运行
-可以直接在终端运行dsysb，也可以使用 `&` 在后台运行，例如：
+假设你已经进入程序所在的目录，可以直接在终端运行 _dsysb_，也可以使用 `&` 在后台运行，例如：
+
 ```bash
-./dsysb -remote_host=<seed address> &
+$ ./dsysb -<connections|http_port|ip|log_file|network_id|port|remote_host>=<value> &
 ```
 后台运行推荐使用[tmux](https://github.com/tmux/tmux/wiki)
 
 
-此处 _-remote_host_ 参数指定了一个接入dsysb网络(p2p网络)的种子地址，
+## 参数详解
+
+- _\-connections_ 最大P2P连接数量，默认是：32
+- _\-http\_port_ 启动HTTP的端口，默认是："20000"
+- _\-ip_ 启动P2P的IP，默认是："0.0.0.0"
+- _\-log\_file_ 是否将日志写到文件，默认是：false
+- _\-network\_id_ 网络ID，0：主网，1-15：不同的测试网，16：开发网，默认是：0
+- _\-port_ 启动P2P的IP，默认是：10000
+- _\-remote\_host_ 追加一个远程P2P节点的UDP地址
 
 
-目前testnet 0.1版本只支持此种方式。
+写这个教程的时候，只有_\_network\_id_=1 的 _testnet_ 在运行，其P2P的地址为: _124.243.173.119:10000_。现在连上他
+
+```bash
+$ ./dsysb -network_id=1 -remote_host=124.243.173.119:10000
+```
 
 
-该种子地址可以是一个你已知的节点地址，也可以是本文公布的地址:
-
-a seed address for testnet 0.1: _xxx.xxx.xxx.xxx:ppp_

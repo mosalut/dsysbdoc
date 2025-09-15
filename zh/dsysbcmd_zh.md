@@ -1,187 +1,226 @@
-# 准备工作
+# 交互命令程序
+_dsysbcmd_ 可以通过命令与dsysb 和 dsysbminer 进行交互。
 
-## 系统要求：
-
-- 操作系统：Linux (64 位)，Windows 10 (测试不足)。
-
-# 安装配置
-- 步骤：访问 GitHub 地址 [xxx](#) 
-## 源码编译 : 使用go语言，go语言官方文档 https://go.dev/doc/install/source
-## 下载安装包：在linux home目录下创建一个文件夹dsysb,把下载的三个可执行程序都放在这里，启动分别参考[dsysb 简体中文](dsysb.md)，与[dsysbminer 简体中文](dsysbminer.md)。
-
-
-# 用户端程序
-`dsysbcmd` 程序是最上层的用户端程序，可以通过命令与dsysb 和 dsysbminer 进行交互。到此为止，所有的准备工作都已经完成。
-
-## 创建地址
-首次使用的客户需要先创建地址，使用命令(该命令不依赖其余服务)：
-```bash
-./dsysbcmd newaddress
-```
-
-
-然后使用以下命令校验地址生成是否成功，使用命令(该命令不依赖其余服务)：
-```bash
-./dsysbcmd getaddresses
-```
-
-## 开始挖矿
-获取原生代币，使用命令(该命令依赖dsysbminer服务)：
-
-address为接收挖矿奖励的钱包地址
-
-如果本机启动了多个dsysbminer, 则可以通过port, 指定启动在哪个端口上的dsysbminer开始挖矿
-
-默认port为8569
+使用格式：
 
 ```bash
-./dsysbcmd start <address> [port]
-```
-示例
-```bash
-./dsysbcmd start D9U8tiQ1BTNBabTHiPh7vKvJQCFDkxQQnX 8570
+$ ./dsysbcmd 选项 参数1 参数2 参数n...
 ```
 
-## 停止挖矿
-如果想停止挖矿，使用命令(该命令依赖dsysbminer服务)：
-如果本机启动了多个dsysbminer, 则可以通过port, 指定启动在哪个端口上的dsysbminer停止挖矿
-```bash
-./dsysbcmd stop [port]
-```
-示例
-```bash
-./dsysbcmd stop 8570
-```
+### setconnnum
+设置最大P2P连接数
 
-## 查看余额
-挖矿成功之后，查看原生代币 Satoshi 的余额,使用命令(该命令依赖dsysb服务)：
-
-address为接收挖矿奖励的钱包地址
-
-```bash
-./dsysbcmd getbalance <address> 
-```
-示例
-```bash
-./dsysbcmd getbalance D9U8tiQ1BTNBabTHiPh7vKvJQCFDkxQQnX
-```
+参数：
+- 连接数
 
 
-## 发起转账
-如果用户想发起一个转账，需要手动构建命令，使用命令(该命令依赖dsysb服务)：
-```bash
-./dsysbcmd createrawtransaction transfer '{"from":"<from_address>","to":"<to_address>","amount":<amount>}'
-```
-示例
-```bash
-./dsysbcmd createrawtransaction transfer '{"from":"DPinAXhUPqFBVa5ixoneHWE9JyRNCQDVkG","to":"DAScYXVT5woYVCmGExBhsgGDsWr776JsAk","amount":10000}'
-```
+### listnodes
+列出已连接的节点
 
-这将生成一个原始的交易串。
 
-## 签名交易
-对上一步骤构建的交易签名,使用命令(该命令不依赖其余服务)：
-```bash
-./dsysbcmd sign <transaction_data>
-```
-示例
-```bash
-./dsysbcmd sign 6e6e6b09737300000000440a0d444b0a00e8764817000000102700000000000080969800443955387469513142544e426162544869506837764b764a514346446b7851516e58020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-```
-得到签名后的交易数据，然后使用发送命令发送交易数据，此时正在挖矿的程序会打包这个交易。
+### listaddresses/getaddresses
+列出本节点钱包地址
 
-## 创建自己的 Token
-如果想创建属于自己的 Token（类似 ERC20），使用命令(该命令依赖dsysb服务)：
-```bash
-./dsysbcmd createrawtransaction create '{"name":"<token_name>","symbol":"<token_symbol>","decimals":<decimals>,"totalSupply":<total_supply>,"from":"<from_address>","price":<price>,"blocks":<blocks>}'
-```
-示例：
-```bash
-./dsysbcmd createrawtransaction create '{"name":"ccccc","symbol":"WWW","decimals":9,"totalSupply":100000000000,"from":"DPZWKbiAnZwMayjK9ttSb7iZQELYaU43Xc","price":10000,"blocks":11001}'
-```
 
-然后查看所有的 Token 列表，使用命令(该命令依赖dsysb服务)：
-```bash
-./dsysbcmd getassets 
-```
+### newaddress
+生成新的钱包地址
 
-##  Token 转账
-Token 转账的格式与原生代币类似，使用命令(该命令依赖dsysb服务)：
-```bash
-./dsysbcmd createrawtransaction transfer '{"from":"<from_address>","to":"<to_address>","amount":<amount>,"assetId":"<asset_id>"}'
-```
-示例：
-```bash
-./dsysbcmd createrawtransaction transfer '{"from":"DPinAXhUPqFBVa5ixoneHWE9JyRNCQDVkG","to":"DAScYXVT5woYVCmGExBhsgGDsWr776JsAk","amount":10000,"assetId":"102700000000000080969800443955387469513142544e426162544869506837"}'
-```
 
-## 查询 Token 余额
-查询 Token 的余额，使用命令(该命令依赖dsysb服务)：
-```bash
-./dsysbcmd getassetbalance <address> <asset_id> 
-```
-示例：
-```bash 
-./dsysbcmd getassetbalance D9U8tiQ1BTNBabTHiPh7vKvJQCFDkxQQnX 102700000000000080969800443955387469513142544e426162544869506837 
-```
+### validateaddress
+验证钱包地址
 
-## decode解码交易数据
-用户有时候需要查看自己生成的签名信息或者交易信息是否正确，使用命令(该命令不依赖其余服务)：
 
-```bash
-./dsysbcmd decoderawtransaction <transaction_data> 
-```
-示例：
-```bash 
-./dsysbcmd decoderawtransaction  6e6e6b09737300000000440a0d444b0a00e8764817000000102700000000000080969800443955387469513142544e426162544869506837764b764a514346446b7851516e58020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-```
-如果能够正确解码的就是数据格式没问题的
+### exportwallet
+导出钱包地址.
 
-## 获取blockchain
-使用命令(该命令依赖dsysb服务)：
+参数：
+- 钱包地址
 
-从最新块开始，高度降序，默认列出20个区块。quantity 为要列出的数量
-```bash
-./dsysbcmd getblockchain [quantity]
-```
-示例：
-```bash 
-./dsysbcmd getblockchain 5
-```
 
-## 通过索引或者第index个block
-使用命令(该命令依赖dsysb服务)：
-```bash 
-./dsysbcmd getblockbyindex <index>
-```
-示例：
-```bash 
-./dsysbcmd getblockbyindex 100
-```
+### importwallet
+导入钱包私钥.
 
-## 通过hash值获取block
-使用命令(该命令依赖dsysb服务)：
-```bash 
-./dsysbcmd getblockbyhash <block_hash>
-```
-示例：
-```bash 
-./dsysbcmd getblockbyhash b09737300000000440a0d444b0a00e876481700000010270000000000008096980044395
-```
+参数：
+- 钱包私钥
 
-## 获取交易
-使用命令(该命令依赖dsysb服务)：
-从最新区块到向前n个区块中，通过交易hash值，获取交易
-n默认为200
-```bash 
-./dsysbcmd gettransaction <txid> [n]
-```
 
-## 获取未被区块打包的交易列表
-使用命令(该命令不依赖其余服务)：
-```bash 
-./dsysbcmd listtransactionpool
-```
+### createrawtransaction / create
+创建交易
+
+参数：
+- 交易类型
+1. create: 创建资产
+2. transfer: 转账
+3. exchange: 兑换
+4. deploy: 部署任务
+5. call: 调用任务
+6. extension: 扩展资产或任务的生命周期
+- JSON 字符串 Example: ./dsysb createrawtransaction '{"axid":"0xa....","type":"transfer","from":addressF,"to":addressTo,"Amount":100,"assetId":id}' returns a rawtransaction.
+[JSON 字段详情](json_zh.md)
+
+
+### decoderawtransaction / decode
+交易解码
+
+参数：
+- 交易序列码
+
+
+### signrawtransaction / sign
+对交易进行签名
+
+参数：
+- 交易序列码
+
+
+### sendrawtransaction / send
+发送交易
+
+参数：
+- 已签名的交易序列码
+
+
+### getaccount
+查看账户
+
+参数：
+- 钱包地址
+
+
+### getassets
+列出资产
+
+
+### getasset
+查看资产内容
+
+参数：
+- 资产ID
+
+
+### gettasks
+列出任务
+
+
+### gettask
+查看任务内容
+
+参数：
+- 任务ID
+
+
+### getstate
+查看链上全局状态
+
+
+### getblockchain
+查看整个区块链
+
+参数：
+- 要显示的区块数，非必填，默认10
+
+
+### getblockbyindex
+通过高度获取区块内容
+
+参数：
+- 高度
+
+
+### getblockbyhash
+通过HASH获取区块内容
+
+参数：
+- HASH
+
+
+### gettransaction
+在最近的n个区块中，查找事务，并显示
+
+参数：
+- TXID
+- n
+
+
+### gettxinpool
+在事务池中查找事务，并显示
+
+参数：
+- TXID
+
+
+### listtransactionpool / listtxpool
+列出事务池中所有事务
+
+
+### getbalance
+查看余额
+
+参数：
+- 钱包地址
+
+
+### getassetbalance
+查看资产余额
+
+参数：
+- 钱包地址
+- 资产ID
+
+
+### broadcast
+广播消息
+
+参数：
+- 消息内容
+
+
+### start
+开始挖矿
+
+参数：
+- 要用于挖矿的钱包地址
+- 要开始矿工程序的端口号，非必填，默认为8569
+
+
+### stop
+停止挖矿
+
+参数:
+- 要停止矿工程序的端口号，非必填，默认为8569
+
+
+### pause
+暂停挖矿
+
+参数:
+- 要暂停矿工程序的端口号，非必填，默认为8569
+
+
+### recover
+恢复挖矿
+
+参数:
+- 要恢复矿工程序的端口号，非必填，默认为8569
+
+
+### atbs
+钱包地址转字节数组
+
+参数：
+- 钱包地址
+
+
+### nidtbs: Asset id or task id to bytes
+资产ID 或任务ID 转字节数组
+
+参数：
+- 资产ID 或任务ID
+
+
+### help
+本文档
+
 
 # 5. 常见问题
 

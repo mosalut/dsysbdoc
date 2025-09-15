@@ -34,8 +34,8 @@ _注意，如果你从其他地方下载，可能会下载到篡改过的文件_
 
 进入到解压后的目录，并运行：
 
-```
-./dsysb -network_id=1 -remote_host=<ip:port>
+```bash
+$ ./dsysb -network_id=1 -remote_host=<ip:port>
 ```
 
 \-network\_id指定了你要加入的网络，共支持 0 - 16, 
@@ -49,8 +49,8 @@ _\-remote\_host_，通常你可以通过配置文件中提供的节点列表 _re
 ## 启动 dsysbminer
 如果你想参与挖矿，在 __dsysb__ 程序已经启动的情况下，在用另一个窗口到相同的目录下，输入：
 
-```
-./dsysbminer
+```bash
+$ ./dsysbminer
 ```
 
 这是挖矿程序在后台启动了，但是并没有开始挖矿，需要 __dsysbcmd__ ，来控制他开始、停止、暂停和恢复挖矿。
@@ -61,46 +61,46 @@ _\-remote\_host_，通常你可以通过配置文件中提供的节点列表 _re
 
 #### 显示区块高度
 
-```
-./dsysbcmd getindex
+```bash
+$ ./dsysbcmd getindex
 ```
 
 #### 生成钱包地址
 
-```
-./dsysbcmd newaddresses // 果是第一次生成，会创建钱包数据库 wallet.db
+```bash
+$ ./dsysbcmd newaddresses // 果是第一次生成，会创建钱包数据库 wallet.db
 ```
 
 #### 列出地址
 
-```
-./dsysbcmd getaddresses // 列出本节点下所有钱包地址
+```bash
+$ ./dsysbcmd getaddresses // 列出本节点下所有钱包地址
 ```
 
 #### 开始挖矿
 
-```
-./dsysbcmd start <wallet address>
+```bash
+$ ./dsysbcmd start <wallet address>
 ```
 _start_选项需要一个矿工的钱包地址
 
 
 #### 停止挖矿
 
-```
-./dsysbcmd stop 
+```bash
+$ ./dsysbcmd stop 
 ```
 
 #### 暂停挖矿
 
-```
-./dsysbcmd pause
+```bash
+$ ./dsysbcmd pause
 ```
 
 #### 恢复挖矿
 
-```
-./dsysbcmd recover 
+```bash
+$ ./dsysbcmd recover 
 ```
 
 如果你通过挖矿，或者他人想你的钱包地址转账，使你的钱包地址有了足够的DSB或者其他资产，那么你可以把它们转给其他人。
@@ -108,10 +108,10 @@ _start_选项需要一个矿工的钱包地址
 
 #### 转账事务
 
-```
-./dsysbcmd createrawtransaction transfer '{"from":"<发送的地址>","to":"<接收的地址>","amount":<金额>,"bytePrice":<字节单价>}'
+```bash
+$ ./dsysbcmd createrawtransaction transfer '{"from":"<发送的地址>","to":"<接收的地址>","amount":<金额>,"bytePrice":<字节单价>}'
 
-./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","amount":10000000,"bytePrice":10}'
+$ ./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","amount":10000000,"bytePrice":10}'
 ```
 
 - 执行以上命令会显示一个事务数据，这个数据就是这个事务的二进制内容。
@@ -124,7 +124,7 @@ _start_选项需要一个矿工的钱包地址
 - 每个事务都需要一个 _bytePrice_ 来指定发送者愿意为这个事务提供的字节单价
 - 如果 _JSON_ 数据中，没有指定 _assetId_ ，那么就会转 __DSB__。否则将转指定的资产。
 
-```
+```bash
 	字节单价 × 事务数据的字节数 = 手续费
 ```
 
@@ -134,8 +134,8 @@ _start_选项需要一个矿工的钱包地址
 
 #### 将事务解码
 
-```
-./dsysbcmd decoderawtransaction <事务数据>
+```bash
+$ ./dsysbcmd decoderawtransaction <事务数据>
 ```
 
 - _decoderawtransaction_ 可以简写为_decode_
@@ -144,8 +144,8 @@ _start_选项需要一个矿工的钱包地址
 
 #### 对事务签名
 
-```
-./dsysbcmd signrawtransaction <事务数据>
+```bash
+$ ./dsysbcmd signrawtransaction <事务数据>
 ```
 
 - _signrawtransaction_ 可以简写为_sign_
@@ -153,16 +153,16 @@ _start_选项需要一个矿工的钱包地址
 
 如果此时你再用 _decoderawtransaction_ 解码签名后的事务数据，你会看到 _signature_ 已经有非0值了
 
-```
-./dsysbcmd decode <签名后的事务数据>
+```bash
+$ ./dsysbcmd decode <签名后的事务数据>
 ```
 
 注意：在复制事务数据时，不要把空格，换行等符号复制进去。
 
 最后我们要把签名后的事务数据发送给主程序，如果主程序验证通过，将会把这笔事务广播到网络，其他节点就会接收到并验证
 
-```
-./dsysbcmd sendrawtransaction <签名后的事务数据>
+```bash
+$ ./dsysbcmd sendrawtransaction <签名后的事务数据>
 ```
 
 - _sendrawtransaction_ 可以简写为 _send_
@@ -173,10 +173,10 @@ _start_选项需要一个矿工的钱包地址
 
 #### 创建资产的事务
 
-```
-./dsysbcmd create create '{"name":"<5-10个字母或数字>","symbol":"<3-5个字母或数字>","decimals":<表示小数点后位数>,"totalSupply":<总供应量>,"from":"<创建者钱包地址>","price":<区块单价>,"blocks":<生命力>,"bytePrice":20}'
+```bash
+$ ./dsysbcmd create create '{"name":"<5-10个字母或数字>","symbol":"<3-5个字母或数字>","decimals":<表示小数点后位数>,"totalSupply":<总供应量>,"from":"<创建者钱包地址>","price":<区块单价>,"blocks":<生命力>,"bytePrice":20}'
 
-'{"name":"aaaaaa","symbol":"AAA","decimals":8,"totalSupply":1000000000000000,"price":10,"blocks":10000,"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","bytePrice":1}'
+$ ./dsysbcmd create create '{"name":"aaaaaa","symbol":"AAA","decimals":8,"totalSupply":1000000000000000,"price":10,"blocks":10000,"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","bytePrice":1}'
 ```
 
 - 此处的第一个 _create_ 是 _createrawtransaction_ 的简写，第二个 _create_ 表示事务的类型是创建资产
@@ -202,30 +202,30 @@ _start_选项需要一个矿工的钱包地址
 
 #### 列出资产
 
-```
-./dsysbcmd getassets
+```bash
+$ ./dsysbcmd getassets
 ```
 
 - _getassets_ 会列出所有链上资产的 _assetId_
 
 #### 产看资产
 
-```
-./dsysbcmd getasset <assetId>
+```bash
+$ ./dsysbcmd getasset <assetId>
 ```
 
 - _getassets_ 会显示一个资产的详细内容
 
 #### 查看链上事务
 
-```
-./dsysbcmd gettransaction <txid>
+```bash
+$ ./dsysbcmd gettransaction <txid>
 ```
 
 #### 列出池中事务
 
-```
-./dsysbcmd listtransactionpool
+```bash
+$ ./dsysbcmd listtransactionpool
 ```
 
 - _listtransactionpool_ 可以简写成 _listtxpool_。
@@ -234,10 +234,10 @@ _start_选项需要一个矿工的钱包地址
 
 #### asset转账
 
-```
-./dsysbcmd createrawtransaction transfer '{"from":"<发送的地址>","to":"<接收的地址>","assetId":<assetId>,"amount":<金额>,"bytePrice":<字节单价>}'
+```bash
+$ ./dsysbcmd createrawtransaction transfer '{"from":"<发送的地址>","to":"<接收的地址>","assetId":<assetId>,"amount":<金额>,"bytePrice":<字节单价>}'
 
-./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","assetId":"121639f97c3b296b67edc208948e4d041bd4755f7a98274d6284d152be4af679","amount":10000000,"bytePrice":10}'
+$ ./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","assetId":"121639f97c3b296b67edc208948e4d041bd4755f7a98274d6284d152be4af679","amount":10000000,"bytePrice":10}'
 ```
 
 - 同样还要经过 _signrawtransaction_，_sendrawtransaction_ 并等待出两个块
