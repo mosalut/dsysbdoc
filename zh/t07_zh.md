@@ -6,6 +6,7 @@ _transfer_ 是转账事务
 
 - _from_ 发送者钱包地址
 - _to_ 接收者钱包地址
+- _hier_ 继承者钱包地址
 - _amount_ 金额
 - _assetId_ 要转账的资产ID，如果不填就是全0，同时代表 _DSB_
 - _nonce_ 防止重放攻击

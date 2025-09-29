@@ -12,6 +12,7 @@ _deploy_ 是部署任务。_DSYSB_中的任务，类似以太坊中的智能合�
 - _price_ 生命力单价
 - _block_ 生命力
 - _from_ 部署者钱包地址
+- _hier_ 继承者钱包地址
 - _nonce_ 防重放攻击
 - _bytePrice_ 字节单价
 - _signer_ 签名

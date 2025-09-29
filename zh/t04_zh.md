@@ -29,9 +29,11 @@ _decoderawtransaction_ 将二进制序列或者签名后的二进制序列作为
 
 
 除了 _coinbase_ 每一个事务都会有手续费，手续费的算法是：
+除了 _coinbase_ 每一个事务的 _JSON_ 数据中，都会有 _hier_ 字段，该字段继承了 _from_ 字段中的所有资产，同时弃用在这次事务中暴露过公钥的 _from_ 字段。如果 _hier_ 不填，则 _hier_ = _from_。这样 _from_ 不会被任何其他地址继承资产，不会从全局状态中删除，相当于不被弃用。 
 
 ```
 手续费 = 序列的字节数 × 字节单价
 ```
 
 在 _createrawtransaction_ 时，_JSON_ 数据中的 _nonce_ 和 _signer_ 是自动生成，非用户输入。
+

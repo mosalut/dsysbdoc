@@ -15,6 +15,7 @@
 - _price_ 生命力单价
 - _blocks_ 生命力
 - _from_ 创建者钱包地址
+- _hier_ 继承者钱包地址 
 - _nonce_ 防止重放攻击
 - _bytePrice_ 字节单价
 - _signer_ 签名
@@ -22,7 +23,7 @@
 以下是一个完整的 _create_ 事务命令：
 
 ```bash
-$ ./dsysbcmd create create '{"name":"aaaaaa","symbol":"AAA","decimals":8,"totalSupply":1000000000000000,"price":10,"blocks":10000,"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","bytePrice":1}'
+$ ./dsysbcmd create create '{"name":"aaaaaa","symbol":"AAA","decimals":8,"totalSupply":1000000000000000,"price":10,"blocks":10000,"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","hier":"DT4RqdQUPwkuJkhx7E145dvXUeAcwyKaN2","bytePrice":1}'
 ```
 
 等两个区块左右，可以用

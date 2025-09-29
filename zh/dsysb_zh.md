@@ -26,4 +26,4 @@ $ ./dsysb -<connections|http_port|ip|log_file|network_id|port|remote_host>=<valu
 $ ./dsysb -network_id=1 -remote_host=124.243.173.119:10000
 ```
 
-
+注意： _-remote\_host_ 一定不能写本节点自己的地址，否则会有不可预知的错误。如果写了一个已关闭的节点地址，或者不存在的地址，只要格式正确，都可以正常执行下去，只是不会连接到这种不存在的节点。

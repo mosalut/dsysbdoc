@@ -109,9 +109,9 @@ $ ./dsysbcmd recover
 #### 转账事务
 
 ```bash
-$ ./dsysbcmd createrawtransaction transfer '{"from":"<发送的地址>","to":"<接收的地址>","amount":<金额>,"bytePrice":<字节单价>}'
+$ ./dsysbcmd createrawtransaction transfer '{"from":"<发送的地址>","to":"<接收的地址>","hier":"<继承地址>","amount":<金额>,"bytePrice":<字节单价>}'
 
-$ ./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","amount":10000000,"bytePrice":10}'
+$ ./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","hier":"<继承地址>","amount":10000000,"bytePrice":10}'
 ```
 
 - 执行以上命令会显示一个事务数据，这个数据就是这个事务的二进制内容。
@@ -126,6 +126,16 @@ $ ./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsW
 
 ```bash
 	字节单价 × 事务数据的字节数 = 手续费
+```
+
+- 每个事务也都会需要一个 _hier_ 地址，在 __DSYSB__ 中，称作为继承地址，用来继承另一个地址的所有资产。他的作用类似于 __bitcoin__ 中的找零地址，最终避免使用暴露过公钥的钱包地址。有些情况下，你对某个钱包地址的安全性并不在意，比如你只是经常用同一个钱包地址去发布一些任务，并且该地址下 _DSB_ 或其他资产不值多少钱，不怕丢失。为了方便重复使用，你可以不填写 _hier_ 字段，这样 _hier_ 就会使用 _from_：
+
+```bash
+// hier = from
+$ ./dsysbcmd createrawtransaction transfer '{"from":"<发送的地址>","to":"<接收的地址>","to","amount":<金额>,"bytePrice":<字节单价>}'
+
+// hier = from
+$ ./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","amount":10000000,"bytePrice":10}'
 ```
 
 矿工为了自己的利益，会将事务池中的事务，按字节单价进行降序排序，然后再打包。
@@ -186,7 +196,6 @@ $ ./dsysbcmd create create '{"name":"aaaaaa","symbol":"AAA","decimals":8,"totalS
 - _price_ 表示生命力单价，创建一个资产除了要付手续费给矿工，还要为其生命力支付 __DSB__。每次记账的矿工，拿到的是它的单价，一共可以拿10000次。而不是资产创建时，一次性拿走所有的生命力费用，事实上创建的时候还没有消耗 _blocks_，所以这时记账的矿工，将不会收到生命力费用。之后的记账才收到
 - _price_ 的另一个作用是手续费门槛，也就是之后用 _transfer_ 转账这个资产的 _bytePrice_ 必须大于等于这个 _price_，并且用 _extension_ 延续资产生命时的也沿用当前 _price_
 - 这个资产创建后，都会在 _from_ 地址的余额下，初始为 _JSON_ 中的 _totalSupply_
-- 关于这一点，这个设计有过一个缺陷，因为 _from_ 地址在发送事务时会暴露公钥，用于其他节点验签。暴露公钥的地址相对不安全，而现在初始的 _totalSupply_ 都在这个地址中，需要转到新的地址，但是这期间就可能发生被盗走。由于写这个文档的时候，__Mainnet__ 还没有上线，是在 __Testnet__ 中供社区使用，所以这一版本，不做改动。之后会在_JSON_中加入_to_地址，用来接收初始的 _totalSupply_
 
 然后通过 _signrawtransaction_ 和 _sendrawtransaction_ 来发送这笔事务。
 
