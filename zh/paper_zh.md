@@ -4,7 +4,7 @@
 - 本书中所有 _transaction_ 或者 _tx_ 都代表事务，而非交易
 
 ## 1. 简介
-__dsysb__ ( _Decentral System Blockchain_ )是一种基于区块链的去中心化加密货币系统。它跟 __bitcoin__ 类似，同时也使用 __ethereum__ 的账户模型。__dsysb__ 围绕着去中心化资产运行业务。可以把同质化资产看成是货币，也可把一种货币的总供应量为1的情况，看做是资产（类似 _NFT_）。
+__dsysb__ ( _Decentralized System Blockchain_ )是一种基于区块链的去中心化加密货币系统。它跟 __bitcoin__ 类似，同时也使用 __ethereum__ 的账户模型。__dsysb__ 围绕着去中心化资产运行业务。可以把同质化资产看成是货币，也可把一种货币的总供应量为1的情况，看做是资产（类似 _NFT_）。
 
 ### DSB
 _DSB_ 是 __dsysb__ 链上的系统币，类似于 __ethereum__ 上的 _ETH_。他的单位是 _dsb_，他的最小单位是 _satoshi_，并且1 _dsb_ = 100000000 _satoshi_
