@@ -40,46 +40,46 @@
 | [ins_quo32u](#ins_quo) | 35 | 0x23 | 32-bit unsigned division |
 | [ins_quo64u](#ins_quo) | 36 | 0x24 | 64-bit unsigned division |
 | [ins_inc8](#ins_inc) | 37 | 0x25 | 8-bit signed auto-increment |
-| [ins_inc16](#ins_inc) | 38 | 0x28 | 16-bit signed auto-increment |
-| [ins_inc32](#ins_inc) | 39 | 0x29 | 32-bit signed auto-increment |
-| [ins_inc64](#ins_inc) | 40 | 0x2a | 64-bit signed auto-increment |
-| [ins_inc8u](#ins_inc) | 41 | 0x2b | 8-bit unsigned increment |
-| [ins_inc16u](#ins_inc) | 42 | 0x2c | 16-bit unsigned increment |
-| [ins_inc32u](#ins_inc) | 43 | 0x2d | 32-bit unsigned increment |
-| [ins_inc64u](#ins_inc) | 44 | 0x2e | 64-bit unsigned increment |
-| [ins_dec8](#ins_dec) | 45 | 0x2f | 8-bit signed decrement |
-| [ins_dec16](#ins_dec) | 46 | 0x30 | 16-bit signed decrement |
-| [ins_dec32](#ins_dec) | 47 | 0x31 | 32-bit signed decrement |
-| [ins_dec64](#ins_dec) | 48 | 0x32 | 64-bit signed decrement |
-| [ins_dec8u](#ins_dec) | 49 | 0x33 | 8-bit unsigned decrement |
-| [ins_dec16u](#ins_dec) | 50 | 0x34 | 16-bit unsigned decrement |
-| [ins_dec32u](#ins_dec) | 51 | 0x35 | 32-bit unsigned decrement |
-| [ins_dec64u](#ins_dec) | 52 | 0x36 | 64-bit unsigned decrement |
-| [ins_write_uint8](#ins_write_uint) | 53 | 0x37 | Write uint8 from register to vData |
-| [ins_write_uint16](#ins_write_uint) | 54 | 0x38 | Write uint16 from register to vData |
-| [ins_write_uint32](#ins_write_uint) | 55 | 0x39 | Write uint32 from register to vData |
-| [ins_write_uint64](#ins_write_uint) | 56 | 0x3a | Write uint64 from register to vData |
-| [ins_read_uint8](#ins_read_uint) | 57 | 0x3b | Read uint8 from vData to register |
-| [ins_read_uint16](#ins_read_uint) | 58 | 0x3c | Read uint16 from vData to register |
-| [ins_read_uint32](#ins_read_uint) | 59 | 0x3d | Read uint32 from vData to register |
-| [ins_read_uint64](#ins_read_uint) | 60 | 0x3e | Read uint64 from vData into register |
-| [ins_eq](#ins_eq) | 61 | 0x3f | Compare for equality |
-| [ins_gt](#ins_gt) | 62 | 0x40 | Compare for greater than |
-| [ins_lt](#ins_lt) | 63 | 0x41 | Compare for less than |
-| [ins_gteq](#ins_gteq) | 64 | 0x42 | Compare for greater than or equal to |
-| [ins_lteq](#ins_lteq) | 65 | 0x43 | Compare for less than or equal to |
-| [ins_eq_bytes](#ins_eq_bytes) | 66 | 0x44 | Compare byte order |
-| [ins_height](#ins_height) | 67 | 0x45 | Get current block height |
-| [ins_transfer_dsb_from_caller](#ins_transfer_dsb_from_caller) | 68 | 0x46 | Task caller transfers DSB to task initiator |
-| [ins_transfer_dsb_to_caller](#ins_transfer_dsb_to_caller) | 69 | 0x47 | Task initiator transfers DSB to task caller |
-| [ins_transfer_from_caller](#ins_transfer_from_caller) | 70 | 0x48 | Task caller transfers asset token to task initiator |
-| [ins_transfer_to_caller](#ins_transfer_to_caller) | 71 | 0x49 | Task initiator transfers asset token to task caller |
-| [ins_pushsb](#ins_pushsb) | 72 | 0x4a | Read byte order from call parameter into vData |
-| [ins_push8](#ins_push) | 73 | 0x4b | Read 8-bit byte from call parameter into vData |
-| [ins_push16](#ins_push) | 74 | 0x4c | Read 16-bit byte from call parameter into vData |
-| [ins_push32](#ins_push) | 75 | 0x4d | Read 32-bit byte from call parameter into vData |
-| [ins_push64](#ins_push) | 76 | 0x4e | Read 64-bit byte from call parameter into vData |
-| [ins_exit](#ins_exit) | 77 | 0x4f | exit |
+| [ins_inc16](#ins_inc) | 38 | 0x26 | 16-bit signed auto-increment |
+| [ins_inc32](#ins_inc) | 39 | 0x27 | 32-bit signed auto-increment |
+| [ins_inc64](#ins_inc) | 40 | 0x28 | 64-bit signed auto-increment |
+| [ins_inc8u](#ins_inc) | 41 | 0x29 | 8-bit unsigned increment |
+| [ins_inc16u](#ins_inc) | 42 | 0x2a | 16-bit unsigned increment |
+| [ins_inc32u](#ins_inc) | 43 | 0x2b | 32-bit unsigned increment |
+| [ins_inc64u](#ins_inc) | 44 | 0x2c | 64-bit unsigned increment |
+| [ins_dec8](#ins_dec) | 45 | 0x2d | 8-bit signed decrement |
+| [ins_dec16](#ins_dec) | 46 | 0x2e | 16-bit signed decrement |
+| [ins_dec32](#ins_dec) | 47 | 0x2f | 32-bit signed decrement |
+| [ins_dec64](#ins_dec) | 48 | 0x30 | 64-bit signed decrement |
+| [ins_dec8u](#ins_dec) | 49 | 0x31 | 8-bit unsigned decrement |
+| [ins_dec16u](#ins_dec) | 50 | 0x32 | 16-bit unsigned decrement |
+| [ins_dec32u](#ins_dec) | 51 | 0x33 | 32-bit unsigned decrement |
+| [ins_dec64u](#ins_dec) | 52 | 0x34 | 64-bit unsigned decrement |
+| [ins_write_uint8](#ins_write_uint) | 53 | 0x35 | Write uint8 from register to vData |
+| [ins_write_uint16](#ins_write_uint) | 54 | 0x36 | Write uint16 from register to vData |
+| [ins_write_uint32](#ins_write_uint) | 55 | 0x37 | Write uint32 from register to vData |
+| [ins_write_uint64](#ins_write_uint) | 56 | 0x38 | Write uint64 from register to vData |
+| [ins_read_uint8](#ins_read_uint) | 57 | 0x39 | Read uint8 from vData to register |
+| [ins_read_uint16](#ins_read_uint) | 58 | 0x3a | Read uint16 from vData to register |
+| [ins_read_uint32](#ins_read_uint) | 59 | 0x3b | Read uint32 from vData to register |
+| [ins_read_uint64](#ins_read_uint) | 60 | 0x3c | Read uint64 from vData into register |
+| [ins_eq](#ins_eq) | 61 | 0x3d | Compare for equality |
+| [ins_gt](#ins_gt) | 62 | 0x3e | Compare for greater than |
+| [ins_lt](#ins_lt) | 63 | 0x3f | Compare for less than |
+| [ins_gteq](#ins_gteq) | 64 | 0x40 | Compare for greater than or equal to |
+| [ins_lteq](#ins_lteq) | 65 | 0x41 | Compare for less than or equal to |
+| [ins_eq_bytes](#ins_eq_bytes) | 66 | 0x42 | Compare byte order |
+| [ins_height](#ins_height) | 67 | 0x43 | Get current block height |
+| [ins_transfer_dsb_from_caller](#ins_transfer_dsb_from_caller) | 68 | 0x44 | Task caller transfers DSB to task initiator |
+| [ins_transfer_dsb_to_caller](#ins_transfer_dsb_to_caller) | 69 | 0x45 | Task initiator transfers DSB to task caller |
+| [ins_transfer_from_caller](#ins_transfer_from_caller) | 70 | 0x46 | Task caller transfers asset token to task initiator |
+| [ins_transfer_to_caller](#ins_transfer_to_caller) | 71 | 0x47 | Task initiator transfers asset token to task caller |
+| [ins_pushsb](#ins_pushsb) | 72 | 0x48 | Read byte order from call parameter into vData |
+| [ins_push8](#ins_push) | 73 | 0x49 | Read 8-bit byte from call parameter into vData |
+| [ins_push16](#ins_push) | 74 | 0x4a | Read 16-bit byte from call parameter into vData |
+| [ins_push32](#ins_push) | 75 | 0x4b | Read 32-bit byte from call parameter into vData |
+| [ins_push64](#ins_push) | 76 | 0x4c | Read 64-bit byte from call parameter into vData |
+| [ins_exit](#ins_exit) | 77 | 0x4d | exit |
 - In the following pn descriptions, unless otherwise specified, they represent the starting position index of specific data. Some length data is a value.
 
 <h3 id="ins_movsb">ins_movsb</h3>

@@ -40,46 +40,46 @@
 | [ins_quo32u](#ins_quo) | 35 | 0x23 | 32位无符号除法 |
 | [ins_quo64u](#ins_quo) | 36 | 0x24 | 64位无符号除法 |
 | [ins_inc8](#ins_inc) | 37 | 0x25 | 8位有符号自增 |
-| [ins_inc16](#ins_inc) | 38 | 0x28 | 16位有符号自增 |
-| [ins_inc32](#ins_inc) | 39 | 0x29 | 32位有符号自增 |
-| [ins_inc64](#ins_inc) | 40 | 0x2a | 64位有符号自增 |
-| [ins_inc8u](#ins_inc) | 41 | 0x2b | 8位无符号自增 |
-| [ins_inc16u](#ins_inc) | 42 | 0x2c | 16位无符号自增 |
-| [ins_inc32u](#ins_inc) | 43 | 0x2d | 32位无符号自增 |
-| [ins_inc64u](#ins_inc) | 44 | 0x2e | 64位无符号自增 |
-| [ins_dec8](#ins_dec) | 45 | 0x2f | 8位有符号自减 |
-| [ins_dec16](#ins_dec) | 46 | 0x30 | 16位有符号自减 |
-| [ins_dec32](#ins_dec) | 47 | 0x31 | 32位有符号自减 |
-| [ins_dec64](#ins_dec) | 48 | 0x32 | 64位有符号自减 |
-| [ins_dec8u](#ins_dec) | 49 | 0x33 | 8位无符号自减 |
-| [ins_dec16u](#ins_dec) | 50 | 0x34 | 16位无符号自减 |
-| [ins_dec32u](#ins_dec) | 51 | 0x35 | 32位无符号自减 |
-| [ins_dec64u](#ins_dec) | 52 | 0x36 | 64位无符号自减 |
-| [ins_write_uint8](#ins_write_uint) | 53 | 0x37 | 从寄存器写uint8到vData |
-| [ins_write_uint16](#ins_write_uint) | 54 | 0x38 | 从寄存器写uint16到vData |
-| [ins_write_uint32](#ins_write_uint) | 55 | 0x39 | 从寄存器写uint32到vData |
-| [ins_write_uint64](#ins_write_uint) | 56 | 0x3a | 从寄存器写uint64到vData |
-| [ins_read_uint8](#ins_read_uint) | 57 | 0x3b | 从vData读uint8到寄存器 |
-| [ins_read_uint16](#ins_read_uint) | 58 | 0x3c | 从vData读uint16到寄存器 |
-| [ins_read_uint32](#ins_read_uint) | 59 | 0x3d | 从vData读uint32到寄存器 |
-| [ins_read_uint64](#ins_read_uint) | 60 | 0x3e | 从vData读uint64到寄存器 |
-| [ins_eq](#ins_eq) | 61 | 0x3f | 比较等于 |
-| [ins_gt](#ins_gt) | 62 | 0x40 | 比较大于 |
-| [ins_lt](#ins_lt) | 63 | 0x41 | 比较小于 |
-| [ins_gteq](#ins_gteq) | 64 | 0x42 | 比较大于等于 |
-| [ins_lteq](#ins_lteq) | 65 | 0x43 | 比较小于等于 |
-| [ins_eq_bytes](#ins_eq_bytes) | 66 | 0x44 | 比较字节序 |
-| [ins_height](#ins_height) | 67 | 0x45 | 获取当前区块高度 |
-| [ins_transfer_dsb_from_caller](#ins_transfer_dsb_from_caller) | 68 | 0x46 | 任务调用者向任务发起者转DSB |
-| [ins_transfer_dsb_to_caller](#ins_transfer_dsb_to_caller) | 69 | 0x47 | 任务发起者向任务调用者转DSB |
-| [ins_transfer_from_caller](#ins_transfer_from_caller) | 70 | 0x48 | 任务调用者向任务发起者转asset token |
-| [ins_transfer_to_caller](#ins_transfer_to_caller) | 71 | 0x49 | 任务发起者向任务调用者转asset token |
-| [ins_pushsb](#ins_pushsb) | 72 | 0x4a | 从调用参数读取字节序到 vData |
-| [ins_push8](#ins_push) | 73 | 0x4b | 从调用参数读取8位字节到 vData |
-| [ins_push16](#ins_push) | 74 | 0x4c | 从调用参数读取16位字节到 vData |
-| [ins_push32](#ins_push) | 75 | 0x4d | 从调用参数读取32位字节到 vData |
-| [ins_push64](#ins_push) | 76 | 0x4e | 从调用参数读取64位字节到 vData |
-| [ins_exit](#ins_exit) | 77 | 0x4f | 退出指令集 |
+| [ins_inc16](#ins_inc) | 38 | 0x26 | 16位有符号自增 |
+| [ins_inc32](#ins_inc) | 39 | 0x27 | 32位有符号自增 |
+| [ins_inc64](#ins_inc) | 40 | 0x28 | 64位有符号自增 |
+| [ins_inc8u](#ins_inc) | 41 | 0x29 | 8位无符号自增 |
+| [ins_inc16u](#ins_inc) | 42 | 0x2a | 16位无符号自增 |
+| [ins_inc32u](#ins_inc) | 43 | 0x2b | 32位无符号自增 |
+| [ins_inc64u](#ins_inc) | 44 | 0x2c | 64位无符号自增 |
+| [ins_dec8](#ins_dec) | 45 | 0x2d | 8位有符号自减 |
+| [ins_dec16](#ins_dec) | 46 | 0x2e | 16位有符号自减 |
+| [ins_dec32](#ins_dec) | 47 | 0x2f | 32位有符号自减 |
+| [ins_dec64](#ins_dec) | 48 | 0x30 | 64位有符号自减 |
+| [ins_dec8u](#ins_dec) | 49 | 0x31 | 8位无符号自减 |
+| [ins_dec16u](#ins_dec) | 50 | 0x32 | 16位无符号自减 |
+| [ins_dec32u](#ins_dec) | 51 | 0x33 | 32位无符号自减 |
+| [ins_dec64u](#ins_dec) | 52 | 0x34 | 64位无符号自减 |
+| [ins_write_uint8](#ins_write_uint) | 53 | 0x35 | 从寄存器写uint8到vData |
+| [ins_write_uint16](#ins_write_uint) | 54 | 0x36 | 从寄存器写uint16到vData |
+| [ins_write_uint32](#ins_write_uint) | 55 | 0x37 | 从寄存器写uint32到vData |
+| [ins_write_uint64](#ins_write_uint) | 56 | 0x38 | 从寄存器写uint64到vData |
+| [ins_read_uint8](#ins_read_uint) | 57 | 0x39 | 从vData读uint8到寄存器 |
+| [ins_read_uint16](#ins_read_uint) | 58 | 0x3a | 从vData读uint16到寄存器 |
+| [ins_read_uint32](#ins_read_uint) | 59 | 0x3b | 从vData读uint32到寄存器 |
+| [ins_read_uint64](#ins_read_uint) | 60 | 0x3c | 从vData读uint64到寄存器 |
+| [ins_eq](#ins_eq) | 61 | 0x3d | 比较等于 |
+| [ins_gt](#ins_gt) | 62 | 0x3e | 比较大于 |
+| [ins_lt](#ins_lt) | 63 | 0x3f | 比较小于 |
+| [ins_gteq](#ins_gteq) | 64 | 0x40 | 比较大于等于 |
+| [ins_lteq](#ins_lteq) | 65 | 0x41 | 比较小于等于 |
+| [ins_eq_bytes](#ins_eq_bytes) | 66 | 0x42 | 比较字节序 |
+| [ins_height](#ins_height) | 67 | 0x43 | 获取当前区块高度 |
+| [ins_transfer_dsb_from_caller](#ins_transfer_dsb_from_caller) | 68 | 0x44 | 任务调用者向任务发起者转DSB |
+| [ins_transfer_dsb_to_caller](#ins_transfer_dsb_to_caller) | 69 | 0x45 | 任务发起者向任务调用者转DSB |
+| [ins_transfer_from_caller](#ins_transfer_from_caller) | 70 | 0x46 | 任务调用者向任务发起者转asset token |
+| [ins_transfer_to_caller](#ins_transfer_to_caller) | 71 | 0x47 | 任务发起者向任务调用者转asset token |
+| [ins_pushsb](#ins_pushsb) | 72 | 0x48 | 从调用参数读取字节序到 vData |
+| [ins_push8](#ins_push) | 73 | 0x49 | 从调用参数读取8位字节到 vData |
+| [ins_push16](#ins_push) | 74 | 0x4a | 从调用参数读取16位字节到 vData |
+| [ins_push32](#ins_push) | 75 | 0x4b | 从调用参数读取32位字节到 vData |
+| [ins_push64](#ins_push) | 76 | 0x4c | 从调用参数读取64位字节到 vData |
+| [ins_exit](#ins_exit) | 77 | 0x4d | 退出指令集 |
 
 
 - 以下pn说明，除非特别指定为值，代表的都是具体数据的开始位置索引。一些长度数据是值
