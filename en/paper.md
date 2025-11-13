@@ -74,12 +74,12 @@ _Transactions_ define how digital assets are handled and provide methods for has
 
 ### Transaction Types
 - _coinbase_: Rewards miners for maintaining the network. The transaction fees are also added to the _coinbase_ reward.
-The initial coinbase reward per block is 500 DSB.
+The initial coinbase reward per block is 500 _DSB_.
 The reward is halved every 157,680 blocks (approximately 3 years, similar to Bitcoin), and this halving occurs three times.
 After the final halving, the reward directly decreases to 0, lasting a total of about 9 years.
 After that, only transaction fees remain as miner rewards, with no additional block rewards.
 
-Based on this, the total supply of DSB can be calculated as:
+Based on this, the total supply of __DSB__ can be calculated as:
 
 ```
 157680 * 500 + 157680 * 250 + 157680 * 125 = 137,970,000
@@ -88,12 +88,12 @@ Based on this, the total supply of DSB can be calculated as:
 - _create_: Used to create new digital assets, allowing users to define basic attributes such as the asset’s name and total supply. This type of transaction is packaged into raw transaction data and encoded. Users buy how many blocks the asset can survive. If it expires with no extension, it disappears. In order to prevent the chain from being occupied by garbage, __DSYSB__ believes that if an asset does have value, someone must pay attention to its use. Therefore, when an asset is released, it is necessary to "buy" how many blocks it can be used in the future. If this amount is used up and no one is willing to continue the asset, then the asset will disappear on the chain! This is a very important feature, please be aware of it.
 - _transfer_: Transfers existing assets or __DSB__ between users with specified sender, receiver, and amount.
 - _exchange_: Atomic swaps between two parties within one transaction.
-- _deploy_: Publishes a task (like a simplified smart contract). Tasks in dsysb are composed of simple computational and transfer instructions. No calls or permissions exist between tasks. The sender funds the task. The address used to deploy the task will be locked until the task terminated; no other transactions can be initiated while the address is locked.
+- _deploy_: Publishes a task (like a simplified smart contract). Tasks in __DSYSB__ are composed of simple computational and transfer instructions. No calls or permissions exist between tasks. The sender funds the task. The address used to deploy the task will be locked until the task terminated; no other transactions can be initiated while the address is locked.
 - _call_: Executes a task, possibly changing variables or triggering transfers.
 - _extension_: Extends the lifetime (block count) of an asset or a task.
 
 ### Fee
-The transaction fee is calculated by multiplying the *bytePrice* by the transaction's byte length.
+The transaction fee is calculated by multiplying the _bytePrice_ by the transaction's byte length.
 
 ## 7. Wallet Address
-Wallet generation, signing, and verification follow __bitcoin__’s method. __DSYSB__ addresses are base58-encoded and always 34 characters starting with _D_.
+Wallet generation, signing, and verification follow __bitcoin__'s method. __DSYSB__ addresses are base58-encoded and always 34 characters starting with _D_.
