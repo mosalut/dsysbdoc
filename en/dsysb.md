@@ -1,13 +1,18 @@
 # dsysb Documentation
+__dsysb__ is the main program.
 
-##  running
+## Installation & Configuration
+- source code: [dsysb](https://github.com/mosalut/dsysb)
+- excutable: [dsysb](https://github.com/mosalut/dsysb/releases/download/v1.0.0/dsysb_x86_64-1.0.0.rar) 
+
+## running
 Assuming you are already in the directory where the program is located, you can run _dsysb_ directly in the terminal, or use  `&`  to run it in the background. For example:
 
 ```bash
 $ ./dsysb -<connections|http_port|ip|log_file|network_id|port|remote_host>=<value> &
 ```
-For background execution, it is recommended to use[tmux](https://github.com/tmux/tmux/wiki)
 
+For background execution, it is recommended to use [tmux](https://github.com/tmux/tmux/wiki)
 
 ## Parameter Details
 
