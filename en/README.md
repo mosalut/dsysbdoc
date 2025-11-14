@@ -11,6 +11,9 @@ Use the Go programming language. For official Go documentation:[Installing Go fr
 In your Linux home directory, create a folder named `dsysb`.  
 Place the three downloaded executable files into this folder.  
 The three documentation of them:  
-- [__dsysb__](https://github.com/mosalut/dsysbdocument/blob/master/dsysb.md)  
-- [__dsysbminer__](https://github.com/mosalut/dsysbdocument/blob/master/dsysbminer.md)
-- [__dsysbcmd__](https://github.com/mosalut/dsysbdocument/blob/master/dsysbcmd.md)
+- [__dsysb__](dsysb.md).
+- [__dsysbminer__](dsysbminer.md).
+- [__dsysbcmd__](dsysbcmd.md).
+
+## instruction documentation
+- [__instruction__](dsysbinstruction.md).

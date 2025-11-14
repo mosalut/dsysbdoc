@@ -20,7 +20,7 @@ For background execution, it is recommended to use [tmux](https://github.com/tmu
 - _\-http\_port_ HTTP Startup Port，default: "20000"
 - _\-ip_ IP address to start the P2P service，default:"0.0.0.0"
 - _\-log\_file_ Whether to write logs to a file，default: false
-- _\-network\_id_  Network ID，0：Mainnet，1-15：Different testnets，16：Development network，default: 0
+- _\-network\_id_  Network ID，0:Mainnet，1-15:Different testnets，16:Development network，default:0
 - _\-port_ P2P Startup port，default:10000
 - _\-remote\_host_ specifies a remote P2P node’s UDP address. If `-remote_host` is provided, the seed addresses listed in `remote_hosts` in the config file will no longer be used.
 
