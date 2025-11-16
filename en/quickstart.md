@@ -1,255 +1,266 @@
-# Quick Start
+﻿# Quick Start
 
-## 系统支持
+## System Support
 - Linux
 - Windows
 
-## 安装
+## Installation
 
-你可以从源代码进行编译，或者使用编译好的文件
+You can either compile from source or use the precompiled binaries
 
-以下提供了下载路径：
-
+Download links:
 
 | Linux | Windows |
 | --- | --- |
-| [v0.0.1](#) | [v0.0.1](#) |
+| [v1.0.0](https://github.com/mosalut/dsysb/releases/download/v1.0.0/dist_linux_x86_64-v1.0.0.tar.gz) | [v1.0.0](https://github.com/mosalut/dsysb/releases/download/v1.0.0/dist_windows_x86_64-v1.0.0.rar) |
   
 
-_注意，如果你从其他地方下载，可能会下载到篡改过的文件_
+_If you download from sources other than the official link, you may get tampered files_
 
-解压下载的文件
+Unzip the downloaded package
 
-- __dsysb__：主程序，他负责与其他节点通信，并且验证其他节点过来的数据，同时也负责读写本地数据库
+- __dsysb__：The main program，Responsible for communicating with other nodes, validating incoming data, and reading/writing to the local data
 
-- __dsysbminer__：矿工程序，如果你要挖矿请启动它
+- __dsysbminer__：Mining program ，un this if you want to mine.
 
-- __dsysbcmd__：命令程序，他负责用户与 __dsysb__ 以及 __dsysbminer__ 交互
+- __dsysbcmd__：Command program，Used to interact with both __dsysb__ and __dsysbminer__ 
 
-- __config__：配置文件
+- __config__：Configuration file
 
-- __removedatabase__：__Linux__ 中，清空节点中区块链数据的脚本，防止手动用rm误删到钱包，__windows__ 下不需要该文件
+- __removedatabase__：__Linux__ ，only script that clears blockchain data from the node to prevent accidental wallet deletion，Not needed for__windows__ 
 
-## 启动 dsysb
+## Starting dsysb
 
-进入到解压后的目录，并运行：
+Navigate to the extracted directory and run:
 
-```
-./dsysb -network_id=1 -remote_host=<ip:port>
-```
-
-\-network\_id指定了你要加入的网络，共支持 0 - 16, 
-- 0: __Mainnet__ 编写这个文档时，__Mainnet__ 还没有上线，默认
-- 1 - 15: __Testnet__ 编写这个文档时，只有1号 __Testnet__，其他预留
-
-_\-remote\_host_，通常你可以通过配置文件中提供的节点列表 _remote\_hosts_ 进入 __DSYSB__ 网络，命令行中的 _\-remote\_host_ 可以追加一个你熟知的节点，如果配置文件中的节点为空，那么你必须通过 _\-remote\_host_ 指定一个节点才可以进入网络
-
-关于 __dsysb__ 命令的其他参数，请看[这里](#)
-
-## 启动 dsysbminer
-如果你想参与挖矿，在 __dsysb__ 程序已经启动的情况下，在用另一个窗口到相同的目录下，输入：
-
-```
-./dsysbminer
+```bash
+$ ./dsysb [-network_id=0] -remote_host=<ip:port>
 ```
 
-这是挖矿程序在后台启动了，但是并没有开始挖矿，需要 __dsysbcmd__ ，来控制他开始、停止、暂停和恢复挖矿。
+\-network\_id specifies which network to join, supporting values 0 – 16
+- 0: __Mainnet__ not yet online at the time of writing; default
+- 1 - 15: __Testnet__ at present, only testnet 1 is available，others reserved
+- 16: __DEVNet__ for developers
 
-## 使用 dsysbcmd
+_\-remote\_host_，specifies a known node to connect to，Usually, you can join the DSYSB network via the _remote\_hosts_ list in the configuration file.If this list is empty, you must specify a node using -remote_host to join the network.
 
-在 __dsysb__ 程序已经启动的情况下，在用另一个窗口到相同的目录下，输入：
+For more parameters for __dsysb__ , see here(#)
 
-#### 显示区块高度
+## Starting dsysbminer
+If you wish to mine, with __dsysb__ running, open another terminal in the same directory and run:
 
-```
-./dsysbcmd getindex
-```
-
-#### 生成钱包地址
-
-```
-./dsysbcmd newaddresses // 果是第一次生成，会创建钱包数据库 wallet.db
+```bash
+$ ./dsysbminer
 ```
 
-#### 列出地址
+This starts the mining process in the background, but mining won't actually begin until controlled via dsysbcmd to start, stop, pause, or resume.
 
-```
-./dsysbcmd getaddresses // 列出本节点下所有钱包地址
-```
+## Using dsysbcmd
 
-#### 开始挖矿
+with __dsysb__ running, open another terminal in the same directory and run:
 
-```
-./dsysbcmd start <wallet address>
-```
-_start_选项需要一个矿工的钱包地址
+#### Display blockchain height
 
-
-#### 停止挖矿
-
-```
-./dsysbcmd stop 
+```bash
+$ ./dsysbcmd getindex
 ```
 
-#### 暂停挖矿
+#### Generate wallet address
 
-```
-./dsysbcmd pause
-```
-
-#### 恢复挖矿
-
-```
-./dsysbcmd recover 
+```bash
+$ ./dsysbcmd newaddresses // If first time, creates wallet database wallet.db
 ```
 
-如果你通过挖矿，或者他人想你的钱包地址转账，使你的钱包地址有了足够的DSB或者其他资产，那么你可以把它们转给其他人。
+#### List addresses
 
-
-#### 转账事务
-
-```
-./dsysbcmd createrawtransaction transfer '{"from":"<发送的地址>","to":"<接收的地址>","amount":<金额>,"bytePrice":<字节单价>}'
-
-./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","amount":10000000,"bytePrice":10}'
+```bash
+$ ./dsysbcmd getaddresses // Lists all wallet addresses for the current node
 ```
 
-- 执行以上命令会显示一个事务数据，这个数据就是这个事务的二进制内容。
-- _createrawtransaction_ 表示要创建一个事务，可以简写成 _create_
-- 在命令中，单引号中的内容，事实上都是一个 _JSON_ 数据
-- 在命令中，所有 _JSON_ 外的选项或参数，都是小写。所有 _JSON_ 字段名，都用驼峰命名法，比如这里的 _bytePrice_
-- _JSON_ 字段没有先后顺序
-- 在命令中，所有输入和输出的单位都是 _satoshi_，比如这里的 _amount_ 和 _bytePrice_ 的值
-- _transfer_ 表示事务的类型是转账
-- 每个事务都需要一个 _bytePrice_ 来指定发送者愿意为这个事务提供的字节单价
-- 如果 _JSON_ 数据中，没有指定 _assetId_ ，那么就会转 __DSB__。否则将转指定的资产。
+#### Start mining
 
-```
-	字节单价 × 事务数据的字节数 = 手续费
+```bash
+$ ./dsysbcmd start <wallet address>
 ```
 
-矿工为了自己的利益，会将事务池中的事务，按字节单价进行降序排序，然后再打包。
+_start_ requires a miner’s wallet address
 
-将以上显示的事务数据转回明文
 
-#### 将事务解码
+#### Stop mining
 
-```
-./dsysbcmd decoderawtransaction <事务数据>
-```
-
-- _decoderawtransaction_ 可以简写为_decode_
-- 显示后的内容中会有该笔事务的_txid_等信息
-- 此时signature信息都为0
-
-#### 对事务签名
-
-```
-./dsysbcmd signrawtransaction <事务数据>
+```bash
+$ ./dsysbcmd stop 
 ```
 
-- _signrawtransaction_ 可以简写为_sign_
-- 显示签名后的事务数据
+#### Pause mining
 
-如果此时你再用 _decoderawtransaction_ 解码签名后的事务数据，你会看到 _signature_ 已经有非0值了
-
-```
-./dsysbcmd decode <签名后的事务数据>
+```bash
+$ ./dsysbcmd pause
 ```
 
-注意：在复制事务数据时，不要把空格，换行等符号复制进去。
+#### Resume mining
 
-最后我们要把签名后的事务数据发送给主程序，如果主程序验证通过，将会把这笔事务广播到网络，其他节点就会接收到并验证
-
-```
-./dsysbcmd sendrawtransaction <签名后的事务数据>
+```bash
+$ ./dsysbcmd recover 
 ```
 
-- _sendrawtransaction_ 可以简写为 _send_
+If you have sufficient DSB or other assets from mining or transfers, you can send them to others.
 
-如果这时没有任何输出，那么恭喜你，成功的发送了一笔事务
 
-现在创建一个资产
+#### Transfer transaction
 
-#### 创建资产的事务
+```bash
+$ ./dsysbcmd createrawtransaction transfer '{"from":"<sender address>","to":"<receiver address>","hier":"<inherit address>","amount":<amount>,"bytePrice":<byte price>}'
 
-```
-./dsysbcmd create create '{"name":"<5-10个字母或数字>","symbol":"<3-5个字母或数字>","decimals":<表示小数点后位数>,"totalSupply":<总供应量>,"from":"<创建者钱包地址>","price":<区块单价>,"blocks":<生命力>,"bytePrice":20}'
-
-'{"name":"aaaaaa","symbol":"AAA","decimals":8,"totalSupply":1000000000000000,"price":10,"blocks":10000,"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","bytePrice":1}'
+$ ./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","hier":"<inherit address>","amount":10000000,"bytePrice":10}'
 ```
 
-- 此处的第一个 _create_ 是 _createrawtransaction_ 的简写，第二个 _create_ 表示事务的类型是创建资产
-- 通过一个资产的所有字段内容，可以计算出它的 _assetId_，如果一个 _assetId_ 已经存在，说明已经有相同的资产存在了，所以会创建失败
-- 考虑到如果对资产不限制，那么很多资产创建到链后，没人关心，没人使用，会一直延续在未来的区块中，变成垃圾，所以有以下措施
-- _blocks_ 表示这个资产的生命力，它是以区块为单位的，这里是10000，也就从这个资产到链上，到它经过10000个区块后，如果没有人愿意为它续命，那么它将不复存在。当然，之前区块中的记录还是有的
-- _price_ 表示生命力单价，创建一个资产除了要付手续费给矿工，还要为其生命力支付 __DSB__。每次记账的矿工，拿到的是它的单价，一共可以拿10000次。而不是资产创建时，一次性拿走所有的生命力费用，事实上创建的时候还没有消耗 _blocks_，所以这时记账的矿工，将不会收到生命力费用。之后的记账才收到
-- _price_ 的另一个作用是手续费门槛，也就是之后用 _transfer_ 转账这个资产的 _bytePrice_ 必须大于等于这个 _price_，并且用 _extension_ 延续资产生命时的也沿用当前 _price_
-- 这个资产创建后，都会在 _from_ 地址的余额下，初始为 _JSON_ 中的 _totalSupply_
-- 关于这一点，这个设计有过一个缺陷，因为 _from_ 地址在发送事务时会暴露公钥，用于其他节点验签。暴露公钥的地址相对不安全，而现在初始的 _totalSupply_ 都在这个地址中，需要转到新的地址，但是这期间就可能发生被盗走。由于写这个文档的时候，__Mainnet__ 还没有上线，是在 __Testnet__ 中供社区使用，所以这一版本，不做改动。之后会在_JSON_中加入_to_地址，用来接收初始的 _totalSupply_
+- When you run the above command, it outputs the raw transaction data --the binary representation of that transaction.
+- _createrawtransaction_  specifies that you want to create a transaction. It can be shortened to _create_
+- In the command, the content enclosed in single quotes is, in fact, a JSON data object
+- In the command, all options or parameters outside of the JSON are written in lowercase. All JSON field names use the camelCase naming convention, such as bytePrice.
+- Field order in JSON does not matter. JSON parsers will correctly interpret the data regardless of the sequence.
+- All numerical inputs and outputs in the command are expressed in satoshis --the smallest unit of Bitcoin，amount: total value to be transferred, in satoshis. bytePrice: fee rate per byte, in satoshis.
+- _transfer_ indicates that the transaction type is a fund transfer.
+- Each transaction requires a _bytePrice_ field, which specifies the price per byte the sender is willing to pay for the transaction.
+- If the _JSON_ data does not include an _assetId_ ，field, the transaction will transfer __DSB__ by default. Otherwise, it will transfer the specified asset.
 
-然后通过 _signrawtransaction_ 和 _sendrawtransaction_ 来发送这笔事务。
-
-事务被进入到事务池后，并没有立即被打包，因为主程序的仍然还在等待其他事务进入事务池。
-
-当自己的矿工程序挖出一个块时，主程序才会把当前事务池中的事务打包到新的区块中，最多打包511个，因为还有挖矿奖励事务：_coinbase_，总共512个。剩下延后到后面的区块
-
-新区块打包之后并不会立刻到链上，需要矿工程序把它挖出来，或者说是计算出来，这是 __PoW__ 的标准做法，在此不做赘述
-
-所以当你看到矿工程序显示目前在挖第10个块，这是你发送的事务，那么这个事务将在第11个块挖出来后，才到链上，才能查询到。而11个块挖出来时，矿工程序显示的是在挖12个块，所以看上去是隔了一个块（10,12）
-
-等到创建资产的事务成功到链上之后，我们可以查看它
-
-#### 列出资产
-
-```
-./dsysbcmd getassets
+```bash
+	bytePrice × transaction size (bytes) = fee
 ```
 
-- _getassets_ 会列出所有链上资产的 _assetId_
+- Every transaction requires a _hier_ address. In __DSYSB__, this is called the inheritance address, which is used to inherit all assets from another address. It functions similarly to a change address in __bitcoin__, helping to avoid continued use of wallet addresses whose public keys have been exposed. In some cases, the security of a given wallet address may not be important — for example, if you frequently use the same wallet address to publish tasks, and the address holds only a small amount of _DSB_or other assets. For convenience, if the hier field is omitted in the JSON payload, the system will automatically use the value from the _from_ field as the _hier_ address：
 
-#### 产看资产
+```bash
+// hier = from
+$ ./dsysbcmd createrawtransaction transfer '{"from":"<sender address>","to":"<receiver address>","to","amount":<amount>,"bytePrice":<byte Price>}'
 
-```
-./dsysbcmd getasset <assetId>
-```
-
-- _getassets_ 会显示一个资产的详细内容
-
-#### 查看链上事务
-
-```
-./dsysbcmd gettransaction <txid>
+// hier = from
+$ ./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","amount":10000000,"bytePrice":10}'
 ```
 
-#### 列出池中事务
+miners will sort the transactions in the mempool in descending order based on the fee per byte, and then package them into a block.
 
-```
-./dsysbcmd listtransactionpool
-```
+#### Decode the Transaction
 
-- _listtransactionpool_ 可以简写成 _listtxpool_。
-- 事务池里的事务被打包后，将移出事务池。
-
-
-#### asset转账
-
-```
-./dsysbcmd createrawtransaction transfer '{"from":"<发送的地址>","to":"<接收的地址>","assetId":<assetId>,"amount":<金额>,"bytePrice":<字节单价>}'
-
-./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","assetId":"121639f97c3b296b67edc208948e4d041bd4755f7a98274d6284d152be4af679","amount":10000000,"bytePrice":10}'
+```bash
+$ ./dsysbcmd decoderawtransaction <transaction data>
 ```
 
-- 同样还要经过 _signrawtransaction_，_sendrawtransaction_ 并等待出两个块
+- _decoderawtransaction_ can be shortened to_decode_
+- The output will contain details such as the_txid_of the transaction.
+- At this stage, the signature information will all be 0
 
-#### 所有事务
+#### Sign the Transaction
 
-- _coinbase_ 挖矿奖励
-- _create_ 创建资产
-- _transfer_ 转账
-- _exchange_ 兑换
-- _deploy_ 部署任务
-- _call_ 调用任务
-- _extension_ 延续资产或任务的生命力
+```bash
+$ ./dsysbcmd signrawtransaction <transaction data>
+```
 
-Quick Start中没有提到的事务，将在详细教程中描述
+- _signrawtransaction_ can be shortened to_sign_
+- It will display the signed transaction data
+
+If you now use _decoderawtransaction_ to decode the signed transaction data, you will see that the _signature_ field already contains a non-zero value.  
+
+```bash
+$ ./dsysbcmd decode <signed_transaction_data>
+```
+
+Note: When copying transaction data, make sure not to include spaces, line breaks, or other extra characters.
+
+Finally, we send the signed transaction data to the main program. If the main program validates it successfully, it will broadcast the transaction to the network, and other nodes will receive and verify it.
+
+```bash
+$ ./dsysbcmd sendrawtransaction <signed_transaction_data>
+```
+
+- _sendrawtransaction_ can be shortened to _send_
+
+If no output appears at this point, you have successfully sent a transaction.
+
+Now, let’s proceed to create an asset.
+
+#### Create an Asset Transaction
+
+```bash
+$ ./dsysbcmd create create '{"name":"<5-10 letters or digits>","symbol":"<3-5 letters or digits>","decimals":<number of decimal places>,"totalSupply":<total supply>,"from":"<creator_wallet_address>","price":<unit price per block>,"blocks":<lifespan in blocks>,"bytePrice":20}'
+
+$ ./dsysbcmd create create '{"name":"aaaaaa","symbol":"AAA","decimals":8,"totalSupply":1000000000000000,"price":10,"blocks":10000,"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","bytePrice":1}'
+```
+
+-The first _create_  is the shortened form of _createrawtransaction_ ，The second _create_ specifies that the transaction type is "create asset".
+- From the asset's field values, an _assetId_ can be calculated，If an_assetId_ already exists on the blockchain, it means an identical asset has already been created, and the new creation request will fail.
+- If no restriction is placed on asset lifespan, many unused or forgotten assets would remain on the chain forever, occupying space and becoming blockchain "garbage".
+- _blocks_  defines the lifespan of the asset, measured in blocks，blocks: 10,000 means that starting from the asset's inclusion on the chain, after 10,000 blocks, it will expire unless someone chooses to extend its lifespan. Historical records of the asset will still remain in earlier blocks even after it expires.
+- _price_ represents the payment per block for maintaining the asset's lifespan,creating the asset requires both a transaction fee for miners and a lifespan payment in _DSB_,Each time a block is produced, the miner who records it receives the asset’s price as a reward — and this can happen up to 10,000 times (based on the asset’s blocks value).
+The asset creator does not pay the full lifespan fee all at once during creation.
+At creation time, no blocks have yet been consumed, so the miner who includes the asset creation transaction does not receive any lifespan fee at that moment.
+Only subsequent block producers receive the ongoing life-cycle rewards.
+- _price_  also sets a minimum fee threshold，Any _bytePrice_ used for transferring_transfer_ this asset must be greater than or equal to the asset's _price_,When extending asset lifespan via _extension_ , the same_price_is applied.
+- After the asset is created, the _from_ address (the creator) will initially hold the asset’s totalSupply, as defined in the_JSON_data.
+
+Then, use _signrawtransaction_ and _sendrawtransaction_ to broadcast this transaction.
+After a transaction enters the transaction pool, it is not immediately packaged into a block, because the main program is still waiting for more transactions to accumulate in the pool.
+When your miner program successfully mines a block, the main node will then package the current transactions in the pool into a new block.A maximum of 511 transactions can be included, since one additional slot is reserved for the coinbase (mining reward) transaction, making a total of 512 transactions per block.
+Any remaining transactions will be deferred to later blocks.
+After the new block is packaged, it is not instantly added to the blockchain.
+The miner program still needs to mine (compute) it — this follows the standard Proof of Work __PoW__ process, which we won’t go into detail here.
+
+Therefore, when you see the miner program displaying that it is currently mining block #10, and you send a transaction at that time, that transaction will be included in block #11 once it is mined.
+
+When block #11 is successfully mined, the miner program will show that it has moved on to block #12, which makes it appear as if your transaction was delayed by one block (from 10 → 12).
+
+Once the asset creation transaction is successfully confirmed on-chain, you can then view and verify it.
+
+#### List Assets
+
+```bash
+$ ./dsysbcmd getassets
+```
+
+- The _getassets_ command lists all on-chain assets and their corresponding _assetId_ values.
+
+#### View an Asset
+
+```bash
+$ ./dsysbcmd getasset <assetId>
+```
+
+- The _getassets_ command displays detailed information about a specific asset.
+
+#### View an On-Chain Transaction
+
+```bash
+$ ./dsysbcmd gettransaction <txid>
+```
+
+#### List Transactions in the Pool
+
+```bash
+$ ./dsysbcmd listtransactionpool
+```
+
+- _listtransactionpool_ command can be abbreviated as _listtxpool_.
+- Once transactions in the pool are packaged into a block, they will be removed from the pool.
+
+#### Asset Transfer
+
+```bash
+$ ./dsysbcmd createrawtransaction transfer '{"from":"<sender_address>","to":"<receiver_address>","assetId":<assetId>,"amount":<amoun>,"bytePrice":<byte_price>}'
+
+$ ./dsysbcmd createrawtransaction transfer '{"from":"D892kxbavZUUmj5DHoVCJAFUWsWMeJCGQY","to":"DBwz7C6u6ggHJXnERzWt2co8yT5gTFtBw5","assetId":"121639f97c3b296b67edc208948e4d041bd4755f7a98274d6284d152be4af679","amount":10000000,"bytePrice":10}'
+```
+
+- After creating a raw transaction, you must also execute _signrawtransaction_，_sendrawtransaction_ then wait for approximately two blocks for confirmation.
+
+#### All Transaction Types
+
+- _coinbase_ Mining reward
+- _create_ Create an asset
+- _transfer_ Transfer asset
+- _exchange_ Asset swap
+- _deploy_ Deploy a task
+- _call_ Call a task
+- _extension_ Extend the lifespan of an asset or task
+
+Transactions not mentioned in the Quick Start guide are described in detail in the full tutorial.
